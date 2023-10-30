@@ -1,18 +1,11 @@
 package com.hayanesh;
 
-import com.hayanesh.Counter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,25 +27,25 @@ class CounterTest {
 
     @Test
     void givenCounterIsCalledWithLineCountArguments_thenReturnLineWordAndCharacterCount() {
-        Counter counter = Counter.newInstance("-l");
+        Counter counter = Counter.forOption("-l");
         assertEquals(List.of(7145L), counter.getCounts(sampleFile));
     }
 
     @Test
     void givenCounterIsCalledWithWordCountArguments_thenReturnLineWordAndCharacterCount() {
-        Counter counter = Counter.newInstance("-w");
+        Counter counter = Counter.forOption("-w");
         assertEquals(List.of(58164L), counter.getCounts(sampleFile));
     }
 
     @Test
     void givenCounterIsCalledWitCharacterCountArguments_thenReturnLineWordAndCharacterCount() {
-        Counter counter = Counter.newInstance("-c");
+        Counter counter = Counter.forOption("-c");
         assertEquals(List.of(327911L), counter.getCounts(sampleFile));
     }
 
     @Test
     void givenCounterIsCalledWithNoArguments_thenReturnLineWordAndCharacterCount() {
-        Counter counter = Counter.newInstance();
+        Counter counter = Counter.forAllOptions();
         assertEquals(List.of(7145L, 58164L, 327911L), counter.getCounts(sampleFile));
     }
 

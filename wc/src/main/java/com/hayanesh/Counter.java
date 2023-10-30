@@ -22,11 +22,11 @@ public class Counter {
         this.system = new SystemHelper();
     }
 
-    public static Counter newInstance(){
+    public static Counter forAllOptions(){
         return new Counter(CountType.all());
     }
 
-    public static Counter newInstance(String optionString){
+    public static Counter forOption(String optionString){
         var countTypes = CountType.parseString(optionString);
         return new Counter(countTypes);
     }
@@ -53,7 +53,7 @@ public class Counter {
 
     public static void main(String[] args) {
         boolean optionSpecified = hasOptionSpecified(args);
-        var counter = optionSpecified ? Counter.newInstance(args[0]) : Counter.newInstance();
+        var counter = optionSpecified ? Counter.forOption(args[0]) : Counter.forAllOptions();
 
         var counts = isFilePathProvided(args, optionSpecified) ?
                 counter.getCounts(getFilePaths(args, optionSpecified)) :
