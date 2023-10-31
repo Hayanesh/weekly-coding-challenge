@@ -25,7 +25,7 @@ class TextCompressorTest {
     @Test
     @Order(1)
     void testCompression() throws URISyntaxException, IOException {
-        TextCompressor textCompressor = TextCompressor.usingCodec(new HuffmanCodec());
+        TextCompressor textCompressor = new TextCompressor();
         textCompressor.compress(getPath(FILE_NAME + ".txt"));
         assertTrue(getPath(FILE_NAME + ".hf").toFile().exists());
     }
@@ -33,7 +33,7 @@ class TextCompressorTest {
     @Test
     @Order(2)
     void testDeCompression() throws URISyntaxException, IOException {
-        TextCompressor textCompressor = TextCompressor.usingCodec(new HuffmanCodec());
+        TextCompressor textCompressor = new TextCompressor();
         String actualText  = textCompressor.decompress(getPath(FILE_NAME + ".hf"));
         String expectedText = readTextFrom(FILE_NAME + ".txt");
         assertEquals(expectedText, actualText);

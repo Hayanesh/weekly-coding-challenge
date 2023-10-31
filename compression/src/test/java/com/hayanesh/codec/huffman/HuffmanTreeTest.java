@@ -34,7 +34,7 @@ class HuffmanTreeTest {
                 'D', 42,
                 'E', 120,
                 'K', 7,
-                'L', 43,
+                'L', 42,
                 'M', 24,
                 'U', 37,
                 'Z', 2

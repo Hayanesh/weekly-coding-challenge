@@ -1,6 +1,7 @@
 package com.hayanesh;
 
 import com.hayanesh.codec.Codec;
+import com.hayanesh.codec.huffman.HuffmanCodec;
 import com.igormaznitsa.jbbp.utils.JBBPUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,13 +14,9 @@ public class TextCompressor {
     private final SystemHelper system;
     private final Codec codec;
 
-    public static TextCompressor usingCodec(Codec codec){
-       return new TextCompressor(new SystemHelper(), codec);
-    }
-
-    private TextCompressor(SystemHelper system, Codec codec) {
-        this.system = system;
-        this.codec = codec;
+    public TextCompressor(){
+        this.codec = new HuffmanCodec();
+        this.system = new SystemHelper();
     }
 
     public void compress(Path filePath) throws IOException {
@@ -28,7 +25,7 @@ public class TextCompressor {
 
         int in = content.getBytes().length;
         int out = compressedBytes.length;
-        log.info("Compression Ratio : {} [IN : {} bytes, OUT : {} bytes]", compressionRation(in, out) , in, out);
+        log.info("Compression Ratio : {} [IN : {} bytes, OUT : {} bytes]", compressionRatio(in, out) , in, out);
 
         saveCompressedText(compressedBytes, filePath);
     }
@@ -43,7 +40,7 @@ public class TextCompressor {
         system.writeFile(Path.of(location,  fileName + ".hf"), content);
     }
 
-    private static double compressionRation(double in , double out){
+    private static double compressionRatio(double in , double out){
         return (double) Math.round((in / out) * 100) / 100;
     }
 
